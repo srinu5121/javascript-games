@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Cricket Mimic</title>
+</head>
+<style>
+#container1 {
+  float:left;
+}
+#container2 {
+  float:right;
+}
+#container3 {
+  margin-left:250px;
+  margin-top: 0px;
+}
+</style>
+<script>
+var TeamA = 0;
+var TeamB = 0;
+var score = 0;
+var wickets  = 0;
+function MyFunction(player){
+console.log(location);
+var random = Math.floor(Math.random()*6);
+  if(random == "0") {
+    console.log("out");
+    wickets++;
+    console.log(wickets);
+    (wickets<=1) ? (alert(wickets + "wicket down")) : (alert(wickets + "wickets down"));
+    document.getElementById("wickets").innerHTML = wickets;
+    if(wickets == "1") {
+       score = 0;
+       wickets = 0;
+       document.getElementById("wickets").innerHTML = wickets;
+
+      if(player == 'A')
+        {
+
+      document.getElementById("demo").style.display  = "none";
+
+        }
+      else {
+      document.getElementById("demo3").style.display  = "none";
+
+        (TeamA>TeamB)? (document.getElementById("demo5").innerHTML = "TeamA won's") : (document.getElementById("demo5").innerHTML = "TeamB won's")
+  }
+      }
+
+       }
+  else{
+    console.log("random value is" + random )
+    score+=random;
+    if(player == 'A')
+      {
+        TeamA = score
+    document.getElementById("demo1").innerHTML = TeamA;
+    console.log(TeamA);
+      }
+    else
+      {
+        TeamB = score
+    document.getElementById("demo2").innerHTML = TeamB;
+    console.log(TeamB);
+    (TeamA>TeamB)? (document.getElementById("demo5").innerHTML = "TeamA won's") : (document.getElementById("demo5").innerHTML = "TeamB won's")
+
+      }
+  }
+}
+function RestartGame(){
+  location.reload();
+
+}
+</script>
+<body>
+  <div id = container1>
+  <button id = "demo" onclick = "MyFunction('A')">submit</button>
+  <p>Team A score:<span id = "demo1"></span></p>
+</div>
+<div id= container2>
+    <button id = "demo3" onclick = "MyFunction('B')">submit</button>
+  <p>Team B score:<span id = "demo2"></span></p>
+</div>
+<div id = "container3">
+<p>Wickets:<span id = "wickets"></span></p>
+  <button onclick = "RestartGame()" >RestartGame</button>
+  <p id = "demo5"></p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,135 @@
+<html>
+<head>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script>
+  var count = 0;
+  var items = [{
+            "colorName": "Navy Blue",
+            "colorValue": "#000080"
+        }, {
+            "colorName": "Purple",
+            "colorValue": "#8C0095"
+        }, {
+            "colorName": "Indigo",
+            "colorValue": "#5133AB"
+        }, {
+            "colorName": "Red",
+            "colorValue": "#FF4500"
+        }, {
+            "colorName": "Orange",
+            "colorValue": "#D24726"
+        }, {
+            "colorName": "Green",
+            "colorValue": "#00A600"
+        }, {
+            "colorName": "Sky Blue ",
+            "colorValue": "#00BFFF"
+        }, {
+            "colorName": "Light Pink",
+            "colorValue": "#FF69B4"
+        }, {
+            "colorName": "Deep Pink",
+            "colorValue": "#FF1493"
+        }, {
+            "colorName": "Black",
+            "colorValue": "#000000"
+        }, {
+            "colorName": "Yellow",
+            "colorValue": "#FFD700"
+        }];
+        var Score =0;
+        function ChangeColor(){
+  var  outputColors = [];
+  var colorCount = 4;
+  var  shuffledColors = items.sort(randOrd);
+    var rand = Math.floor((Math.random() * 4) + 0);
+    //console.log(rand)
+    for (var i = 0; i < colorCount; i++) {
+        if (rand != i) {
+            temp = {
+                "name": shuffledColors[i].colorName,
+                "value":shuffledColors[i].colorValue,
+                "score": 0
+            };
+        } else {
+            temp = {
+                "name": shuffledColors[i].colorName,
+                "value":shuffledColors[rand+4].colorValue,
+                "score": 1
+            }
+        }
+        outputColors.push(temp);
+
+    }
+    return outputColors
+
+  }
+    function randOrd() {
+        return (Math.round(Math.random()) - 0.5);
+    }
+
+    function runScore(color,value) {
+      items.map(i=>{
+
+      i.colorName == color ?  (i.colorValue !== value ? count++ : null) : null ;
+      })
+    }
+
+    function timer () {
+      var input = {
+          minutes: 0,
+          seconds: 0
+      };
+
+      var timestamp = new Date(input.minutes, input.seconds);
+
+      var myVar = setInterval(function () {
+          timestamp = new Date(timestamp.getTime() +  1000);
+        if(timestamp.getSeconds()==6){
+          clearTimeout(myVar);
+          $("#demo1").show();
+          $("p").empty();
+        }
+          else {
+            document.getElementById('countdown2').innerHTML = timestamp.getMinutes() + ':' + timestamp.getSeconds();
+          }
+      }, 1000);
+    }
+
+
+    function runCode() {
+      $("p").empty();
+      for(var x of ChangeColor())
+             {
+               //console.log(x)
+   var element = $("<div></div>").text(x.name).css({"background-color": x.value, "color":"white", "height":"50px", "margin":"20px", "width":"300px", "text-align":"center","padding-top": "25px"}).attr({"colorName":x.name,"valueName":x.value}).click(function(){
+                //console.log("event fires")
+                runCode();
+                //console.log(this.getAttribute("color"))
+                let color = this.getAttribute("colorName");
+                let value = this.getAttribute("valueName");
+                runScore(color,value);
+                $("#score").text(count);
+               });
+                $("p").append(element);
+             }
+    }
+    $(document).ready(function(){
+      $("#demo1").click(function(){
+        console.log("click")
+        $("#demo1").hide();
+        timer();
+        $("#score").text(0)
+        runCode();
+      });
+    });
+</script>
+
+</head>
+         <body>
+        Time: <span id="countdown2"></span>
+           <div>Score:<span id="score"></span></div>
+       <p> </p>
+       <button id = "demo1">Start Game</button>
+         </body>
+         </html>
